@@ -1,0 +1,41 @@
+# Alert rules and weights for the mini version
+# You can tune these numbers in interviews to show ownership.
+anchors:
+  month_start: true
+  week_start: true
+
+rules:
+  - id: price_above_month_avwap
+    description: "Close > Month-anchored AVWAP"
+    weight: 12
+  - id: price_above_week_avwap
+    description: "Close > Week-anchored AVWAP"
+    weight: 8
+  - id: rsi_bullish
+    description: "RSI(14) >= 55"
+    weight: 10
+  - id: rsi_bearish
+    description: "RSI(14) <= 45"
+    weight: -10
+  - id: vol_surge
+    description: "Volume z-score (20D) >= 1.5 (expansion is good if price up)"
+    weight: 6
+  - id: fii_dii_divergence_pos
+    description: "FII buying with DII selling (net positive breadth)"
+    weight: 10
+  - id: fii_dii_divergence_neg
+    description: "FII selling with DII buying (institutional risk-off)"
+    weight: -10
+  - id: corr_flip
+    description: "20D Corr(NIFTY, BANKNIFTY) drops below 0.6 (fragmented breadth)"
+    weight: -6
+  - id: higher_high
+    description: "Today close > prior 20D max close"
+    weight: 8
+  - id: lower_low
+    description: "Today close < prior 20D min close"
+    weight: -8
+
+score_bounds:
+  min: 0
+  max: 100
